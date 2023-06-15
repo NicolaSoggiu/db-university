@@ -57,3 +57,8 @@
     SELECT *
     FROM `teachers`
     WHERE `phone` IS Null;
+
+    ALTERNATIVE:
+
+    SELECT COUNT(`phone`)
+    FROM `teachers` ;
