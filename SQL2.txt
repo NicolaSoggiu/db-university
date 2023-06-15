@@ -27,7 +27,7 @@ QUERY CON GROUP BY :
 QUERY CON JOIN : 
 
     1. Selezionare tutti gli studenti al Corso di Laurea in Economia :
-            SELECT * 
+            SELECT `students` . * 
             FROM `students`
             JOIN `degrees` ON `degrees` . `id` = `students` . `degree_id`
             WHERE `degrees`. `name` = 'Corso di Laurea in Economia';
@@ -75,3 +75,11 @@ QUERY CON JOIN :
 
     7. BONUS : Selezionare per ogni studente il numero di tentativi sostenuti per ogni esame. stampando anche il voto massimo. Successivamente, filtrare i tentativi con voto minimo 18 :
 
+            SELECT `students` . `name`, `students` . `surname`, `courses` . `name`, `exam_student` . `vote`, COUNT(`courses`. `id`) AS `Attempts`
+            FROM `students`
+            JOIN `exam_student` ON `exam_student`. `student_id` = `students` . `id`
+            JOIN `exams` ON `exams`. `id` = `exam_student` . `exam_id`
+            JOIN `courses` ON `courses`. `id` = `exams` . `course_id`
+            WHERE `exam_student` . `vote` >= 18
+            GROUP BY `students` . `name`, `students` . `surname`, `courses` . `name`,`exam_student` . `vote`
+            ORDER BY `exam_student`.`vote` ASC;
